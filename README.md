@@ -7,10 +7,10 @@ Memory : 16 GB LPDDR5-6400MHz (Soldered)
 Display : 14" WUXGA (1920 x 1200)  
 
 ## Installation  
-Process
-Desktop
-gnome
-mirrors
+Process  
+Desktop  
+gnome  
+mirrors  
 Preinstall packages list: firefox zsh vim gnome-terminal onlyoffice thunderbird  
 
 ## After installation  
@@ -199,17 +199,17 @@ STOP_CHARGE_THRESH_BAT0 80
 ```
 
 ### Gnome keyboard shortcut customization
-**Navigation**
+**Navigation**  
 Switch applications: Alt+Tab  
 Switch windows: Super+Tab
 Switch windows of an app directly: Super+`
 Switch windows of an application: Alt+`  
 
-**Screenshots**
+**Screenshots**  
 Take a screenshot: Super+S
 Take a screenshot interactively: Print  
 
-**Windows**
+**Windows**  
 Toggle maximization state: Super+Up
 
 ### OneDrive
