@@ -1,4 +1,4 @@
-# tp-arch
+# tp-arch  
 Arch Linux installation and configuration for Thinkpad T14s AMD Gen 3  
 Specs:  
 Processor : AMD Ryzen™ 7 PRO 6850U Processor (2.70 GHz up to 4.70 GHz)  
@@ -6,15 +6,15 @@ Graphic Card : Integrated AMD Radeon™ 680M
 Memory : 16 GB LPDDR5-6400MHz (Soldered)  
 Display : 14" WUXGA (1920 x 1200)  
 
-## Installation
+## Installation  
 Process
 Desktop
 gnome
 mirrors
 Preinstall packages list: firefox zsh vim gnome-terminal onlyoffice thunderbird  
 
-## After installation
-### Keyboard
+## After installation  
+### Keyboard  
 **keyd**
 
 https://github.com/rvaiya/keyd
