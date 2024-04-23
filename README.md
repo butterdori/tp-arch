@@ -6,6 +6,9 @@ Graphic Card : Integrated AMD Radeon™ 680M
 Memory : 16 GB LPDDR5-6400MHz (Soldered)  
 Display : 14" WUXGA (1920 x 1200)  
 
+Installation of Arch Linux on the T14s is quite painless, especially if using the archinstall script. Follow the Arch wiki to install without archinstall, which sometimes has issues. The following tweaks are not strictly necessary, but are quality of life improvements for my personal use.
+
+
 ## Installation  
 Process  
 Desktop  
@@ -38,6 +41,7 @@ Config file in `/etc/keyd/default.conf`
 capslock = overload(control, esc)
 #Remap esc to capslock
 esc = capslock
+#Map pageup and pagedown keys on the keyboard to browser forward/backwards keys, like older models of ThinkPads.
 pagedown = macro(leftalt+right)
 pageup = macro(leftalt+left)
 rightcontrol=layer(fn)
