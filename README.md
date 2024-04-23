@@ -295,6 +295,8 @@ Just Perfection
 Panel Date Format
 Vitals  
 
+### Gnome Theme
+
 ### STATA
 Linux version of STATA18 is installable without much tweaks. However, the installation contains a install script that can sometimes interfere with pacman updates (endless loop of press y to continue). It is safe to delete the installation script after installation.
 
