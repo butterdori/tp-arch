@@ -11,7 +11,7 @@ Process
 Desktop
 gnome
 mirrors
-Preinstall packages list: firefox zsh vim gnome-terminal
+Preinstall packages list: firefox zsh vim gnome-terminal onlyoffice thunderbird  
 
 ## After installation
 ### Keyboard
@@ -198,5 +198,45 @@ START_CHARGE_THRESH_BAT0 75
 STOP_CHARGE_THRESH_BAT0 80
 ```
 
+### Gnome keyboard shortcut customization
+**Navigation**
+Switch applications: Alt+Tab  
+Switch windows: Super+Tab
+Switch windows of an app directly: Super+`
+Switch windows of an application: Alt+`  
+
+**Screenshots**
+Take a screenshot: Super+S
+Take a screenshot interactively: Print  
+
+**Windows**
+Toggle maximization state: Super+Up
+
+
+
+### Gnome Shell Extensions
+AppIndicator and KStatuesNotifierItemSupport  
+Blur my Shell  
+Clipboard History  
+Dash to Dock
+ddterm  
+GSConnect
+Just Perfection  
+Panel Date Format
+Vitals  
+
+### Other applications
+Variety  
+P3X OneNote
+MS-365-Electron
+tlp tlpui
+Obsidian  
+Joplin  
+Krita  
+dconf editor
+Main Menu
+Variety
+
 ## Other resources
-Arch Linux Wiki https://wiki.archlinux.org/title/Lenovo_ThinkPad_T14s_(AMD)_Gen_3
+Arch Linux Wiki https://wiki.archlinux.org/title/Lenovo_ThinkPad_T14s_(AMD)_Gen_3  
+No particular tweaks are necessary but it could nevertheles be helpful
