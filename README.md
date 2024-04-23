@@ -190,6 +190,13 @@ export PATH="$PATH:/home/dk/.local/bin"
 ### Powerline fonts
 Caskaydia
 
+### Battery charge thresholds
+For battery management, charge thresholds can be used. Stops battery from charging before reaching 80%. Start recharging when battery falls to 75%.  
+Install TLP  
+```
+START_CHARGE_THRESH_BAT0 75
+STOP_CHARGE_THRESH_BAT0 80
+```
 
 ## Other resources
 Arch Linux Wiki https://wiki.archlinux.org/title/Lenovo_ThinkPad_T14s_(AMD)_Gen_3
