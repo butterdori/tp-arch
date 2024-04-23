@@ -14,7 +14,7 @@ Process
 Desktop  
 gnome  
 mirrors  
-Preinstall packages list: firefox zsh vim gnome-terminal onlyoffice thunderbird  
+Preinstall packages list: firefox zsh vim gnome-terminal onlyoffice thunderbird mc  
 
 ## After installation  
 ### Keyboard  
@@ -206,8 +206,8 @@ STOP_CHARGE_THRESH_BAT0 80
 **Navigation**  
 Switch applications: Alt+Tab  
 Switch windows: Super+Tab
-Switch windows of an app directly: Super+`
-Switch windows of an application: Alt+`  
+Switch windows of an app directly: Super+\`    
+Switch windows of an application: Alt+\`  
 
 **Screenshots**  
 Take a screenshot: Super+S
@@ -299,16 +299,15 @@ Vitals
 Linux version of STATA18 is installable without much tweaks. However, the installation contains a install script that can sometimes interfere with pacman updates (endless loop of press y to continue). It is safe to delete the installation script after installation.
 
 ### Other applications
-Variety  
-P3X OneNote
-MS-365-Electron
-tlp tlpui
+P3X OneNote  
+MS-365-Electron  
+tlp tlpui  
 Obsidian  
 Joplin  
 Krita  
-dconf editor
-Main Menu
-Variety
+dconf editor  
+Main Menu  
+Variety  
 
 ## Other resources
 Arch Linux Wiki https://wiki.archlinux.org/title/Lenovo_ThinkPad_T14s_(AMD)_Gen_3  
