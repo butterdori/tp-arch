@@ -297,6 +297,10 @@ Vitals
 
 ### Gnome Theme
 
+### GDM Settings
+https://github.com/gdm-settings/gdm-settings?tab=readme-ov-file  
+Greeter theme
+
 ### VSCode
 
 ### R
