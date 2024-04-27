@@ -295,11 +295,18 @@ Just Perfection
 Panel Date Format
 Vitals  
 
+## Themes
+
 ### Gnome Theme
 
 ### GDM Settings
 https://github.com/gdm-settings/gdm-settings?tab=readme-ov-file  
 Greeter theme
+
+### Terminal color scheme
+One Half for gnome-terminal https://github.com/sonph/onehalf
+
+## Work
 
 ### VSCode
 
