@@ -50,6 +50,137 @@ pageup = macro(pageup)
 pagedown = macro(pagedown)
 ```
 
+### Gnome keyboard shortcut customization
+**Navigation**  
+Switch applications: Alt+Tab  
+Switch windows: Super+Tab
+Switch windows of an app directly: Super+\`    
+Switch windows of an application: Alt+\`  
+
+**Screenshots**  
+Take a screenshot: Super+S
+Take a screenshot interactively: Print  
+
+**Windows**  
+Toggle maximization state: Super+Up
+
+### Gnome Shell Extensions
+AppIndicator and KStatuesNotifierItemSupport  
+Blur my Shell  
+Clipboard History  
+Dash to Dock
+ddterm  
+GSConnect
+Just Perfection  
+Panel Date Format
+Vitals  
+
+## Themes
+
+### Gnome Theme
+
+### GDM Settings
+https://github.com/gdm-settings/gdm-settings?tab=readme-ov-file  
+Greeter theme
+
+### Terminal color scheme
+One Half for gnome-terminal https://github.com/sonph/onehalf
+
+## Work
+
+### VSCode
+
+### R
+
+### LaTeX
+
+### STATA
+Linux version of STATA18 is installable without much tweaks. However, the installation contains a install script that can sometimes interfere with pacman updates (endless loop of press y to continue). It is safe to delete the installation script after installation.
+
+### Other applications
+P3X OneNote  
+MS-365-Electron  
+tlp tlpui  
+Obsidian  
+Joplin  
+Krita  
+dconf editor  
+Main Menu  
+Variety  
+MPV  
+
+## App configurations
+## MPV
+Skin: https://github.com/cyl0/ModernX
+
+### OneDrive
+https://github.com/abraunegg/onedrive  
+Config file at ~/.config/onedrive/config
+
+```
+# Configuration for OneDrive Linux Client
+# This file contains the list of supported configuration fields
+# with their default values.
+# All values need to be enclosed in quotes
+# When changing a config option below, remove the '#' from the start of the line
+# For explanations of all config options below see docs/USAGE.md or the man page.
+#
+sync_dir = "~/OneDriveGT"
+# skip_file = "~*|.~*|*.tmp"
+# monitor_interval = "300"
+skip_dir = "World Bank"
+# log_dir = "/var/log/onedrive/"
+# drive_id = ""
+# upload_only = "false"
+# check_nomount = "false"
+# check_nosync = "false"
+# download_only = "false"
+# disable_notifications = "false"
+# disable_upload_validation = "false"
+# enable_logging = "false"
+# force_http_11 = "false"
+# local_first = "false"
+# no_remote_delete = "false"
+# skip_symlinks = "false"
+# debug_https = "false"
+# skip_dotfiles = "false"
+# skip_size = "1000"
+# dry_run = "false"
+# min_notify_changes = "5"
+# monitor_log_frequency = "6"
+# monitor_fullscan_frequency = "12"
+# sync_root_files = "false"
+# classify_as_big_delete = "1000"
+# user_agent = ""
+# remove_source_files = "false"
+# skip_dir_strict_match = "false"
+# application_id = ""
+# resync = "false"
+# resync_auth = "false"
+# bypass_data_preservation = "false"
+# azure_ad_endpoint = ""
+# azure_tenant_id = "common"
+# sync_business_shared_folders = "false"
+# sync_dir_permissions = "700"
+# sync_file_permissions = "600"
+# rate_limit = "131072"
+# webhook_enabled = "false"
+# webhook_public_url = ""
+# webhook_listening_host = ""
+# webhook_listening_port = "8888"
+# webhook_expiration_interval = "86400"
+# webhook_renewal_interval = "43200"
+# space_reservation = "50"
+# display_running_config = "false"
+# read_only_auth_scope = "false"
+# cleanup_local_files = "false"
+# operation_timeout = "3600"
+# dns_timeout = "60"
+# connect_timeout = "10"
+# data_timeout = "600"
+# ip_protocol_version = "0"
+```
+
 ### oh-my-zsh
 https://ohmyz.sh/
 ```
@@ -201,132 +332,6 @@ Install TLP
 START_CHARGE_THRESH_BAT0 75
 STOP_CHARGE_THRESH_BAT0 80
 ```
-
-### Gnome keyboard shortcut customization
-**Navigation**  
-Switch applications: Alt+Tab  
-Switch windows: Super+Tab
-Switch windows of an app directly: Super+\`    
-Switch windows of an application: Alt+\`  
-
-**Screenshots**  
-Take a screenshot: Super+S
-Take a screenshot interactively: Print  
-
-**Windows**  
-Toggle maximization state: Super+Up
-
-### OneDrive
-https://github.com/abraunegg/onedrive  
-Config file at ~/.config/onedrive/config
-
-```
-# Configuration for OneDrive Linux Client
-# This file contains the list of supported configuration fields
-# with their default values.
-# All values need to be enclosed in quotes
-# When changing a config option below, remove the '#' from the start of the line
-# For explanations of all config options below see docs/USAGE.md or the man page.
-#
-sync_dir = "~/OneDriveGT"
-# skip_file = "~*|.~*|*.tmp"
-# monitor_interval = "300"
-skip_dir = "World Bank"
-# log_dir = "/var/log/onedrive/"
-# drive_id = ""
-# upload_only = "false"
-# check_nomount = "false"
-# check_nosync = "false"
-# download_only = "false"
-# disable_notifications = "false"
-# disable_upload_validation = "false"
-# enable_logging = "false"
-# force_http_11 = "false"
-# local_first = "false"
-# no_remote_delete = "false"
-# skip_symlinks = "false"
-# debug_https = "false"
-# skip_dotfiles = "false"
-# skip_size = "1000"
-# dry_run = "false"
-# min_notify_changes = "5"
-# monitor_log_frequency = "6"
-# monitor_fullscan_frequency = "12"
-# sync_root_files = "false"
-# classify_as_big_delete = "1000"
-# user_agent = ""
-# remove_source_files = "false"
-# skip_dir_strict_match = "false"
-# application_id = ""
-# resync = "false"
-# resync_auth = "false"
-# bypass_data_preservation = "false"
-# azure_ad_endpoint = ""
-# azure_tenant_id = "common"
-# sync_business_shared_folders = "false"
-# sync_dir_permissions = "700"
-# sync_file_permissions = "600"
-# rate_limit = "131072"
-# webhook_enabled = "false"
-# webhook_public_url = ""
-# webhook_listening_host = ""
-# webhook_listening_port = "8888"
-# webhook_expiration_interval = "86400"
-# webhook_renewal_interval = "43200"
-# space_reservation = "50"
-# display_running_config = "false"
-# read_only_auth_scope = "false"
-# cleanup_local_files = "false"
-# operation_timeout = "3600"
-# dns_timeout = "60"
-# connect_timeout = "10"
-# data_timeout = "600"
-# ip_protocol_version = "0"
-```
-
-### Gnome Shell Extensions
-AppIndicator and KStatuesNotifierItemSupport  
-Blur my Shell  
-Clipboard History  
-Dash to Dock
-ddterm  
-GSConnect
-Just Perfection  
-Panel Date Format
-Vitals  
-
-## Themes
-
-### Gnome Theme
-
-### GDM Settings
-https://github.com/gdm-settings/gdm-settings?tab=readme-ov-file  
-Greeter theme
-
-### Terminal color scheme
-One Half for gnome-terminal https://github.com/sonph/onehalf
-
-## Work
-
-### VSCode
-
-### R
-
-### LaTeX
-
-### STATA
-Linux version of STATA18 is installable without much tweaks. However, the installation contains a install script that can sometimes interfere with pacman updates (endless loop of press y to continue). It is safe to delete the installation script after installation.
-
-### Other applications
-P3X OneNote  
-MS-365-Electron  
-tlp tlpui  
-Obsidian  
-Joplin  
-Krita  
-dconf editor  
-Main Menu  
-Variety  
 
 ## Other resources
 Arch Linux Wiki https://wiki.archlinux.org/title/Lenovo_ThinkPad_T14s_(AMD)_Gen_3  
