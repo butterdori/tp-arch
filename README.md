@@ -334,7 +334,7 @@ STOP_CHARGE_THRESH_BAT0 80
 ```
 ## System management
 ### Home folder backup
-Backup script (home_backup.sh)
+Backup script (home_backup.sh) that will make a backup every month, keep the last 3 month and last 1 year's backup. It excludes the Downloads folder, cache, log, and temporary files. Bear in mind that not all custom settings live within the home folder. As such, restoring from the backup may not restore all your previous settings.  
 
 ```
 #!/bin/bash
