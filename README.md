@@ -112,6 +112,7 @@ MPV
 ## App configurations
 ## MPV
 Skin: https://github.com/cyl0/ModernX
+Script to autoadd other videos in the same folder to the playlist:
 
 ### OneDrive
 https://github.com/abraunegg/onedrive  
