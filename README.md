@@ -332,6 +332,51 @@ Install TLP
 START_CHARGE_THRESH_BAT0 75
 STOP_CHARGE_THRESH_BAT0 80
 ```
+## System management
+### Home folder backup
+Backup script (home_backup.sh)
+
+```
+#!/bin/bash
+
+# Configuration
+SOURCE_DIR="$HOME"
+DEST_DIR="/path/to/your/debian/server/backup" # Replace with your actual backup directory
+EXCLUDE="--exclude=Downloads --exclude=.cache --exclude=tmp --exclude=temp --exclude='*.tmp' --exclude='*.log'" # Adjust as necessary
+SERVER_USER="your_username" # Replace with your actual server username
+SERVER_ADDRESS="your.server.address" # Replace with your actual server address
+
+# Get current date
+CURRENT_DATE=$(date +"%Y-%m-%d")
+CURRENT_YEAR=$(date +"%Y")
+CURRENT_MONTH=$(date +"%m")
+
+# Define backup directories
+MONTHLY_BACKUP="${DEST_DIR}/monthly/${CURRENT_DATE}"
+YEARLY_BACKUP="${DEST_DIR}/yearly/${CURRENT_YEAR}"
+
+# Create directories if they don't exist
+ssh ${SERVER_USER}@${SERVER_ADDRESS} "mkdir -p ${MONTHLY_BACKUP}"
+ssh ${SERVER_USER}@${SERVER_ADDRESS} "mkdir -p ${YEARLY_BACKUP}"
+
+# Perform rsync backup
+rsync -avz --delete ${EXCLUDE} ${SOURCE_DIR}/ ${SERVER_USER}@${SERVER_ADDRESS}:${MONTHLY_BACKUP}/
+
+# Create yearly backup if it's January
+if [ "${CURRENT_MONTH}" == "01" ]; then
+    ssh ${SERVER_USER}@${SERVER_ADDRESS} "cp -al ${MONTHLY_BACKUP} ${YEARLY_BACKUP}"
+fi
+
+# Rotate monthly backups, keeping only the last 3
+ssh ${SERVER_USER}@${SERVER_ADDRESS} << EOF
+cd ${DEST_DIR}/monthly
+ls -1tr | head -n -3 | xargs -d '\n' rm -rf --
+EOF
+
+# Print completion message
+echo "Backup completed successfully!"
+```
+You can use cron or systemd/timer to schedule. For the above, I will be using systemd.
 
 ## Other resources
 Arch Linux Wiki https://wiki.archlinux.org/title/Lenovo_ThinkPad_T14s_(AMD)_Gen_3  
