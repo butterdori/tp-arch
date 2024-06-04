@@ -343,7 +343,7 @@ Backup script (home_backup.sh) that will make a backup every month, keep the las
 # Configuration
 SOURCE_DIR="$HOME"
 DEST_DIR="/path/to/your/debian/server/backup" # Replace with your actual backup directory
-EXCLUDE="--exclude=Downloads --exclude=.cache --exclude=tmp --exclude=temp --exclude='*.tmp' --exclude='*.log'" # Adjust as necessary
+EXCLUDE="--exclude=Downloads --exclude=.cache --exclude=tmp --exclude=temp --exclude='*.tmp' --exclude='*.log'" --exclude=.var/app/com.valvesoftware.Steam" # Adjust as necessary
 SERVER_USER="your_username" # Replace with your actual server username
 SERVER_ADDRESS="your.server.address" # Replace with your actual server address
 
