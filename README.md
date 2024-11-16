@@ -391,6 +391,7 @@ OUTPUT_DIR="/output/"
 COMMAND="/path/to/Whisper-Faster-XXL/whisper-faster-xxl"
 LANGUAGE="Japanese"
 MODEL="medium"
+TIME_THRESHOLD=86400  # 24 hours in seconds
 
 # Process files
 for file in "$INPUT_DIR"*.mp4; do
@@ -400,6 +401,21 @@ for file in "$INPUT_DIR"*.mp4; do
     # Get the base filename without extension
     base_filename=$(basename "$file" .mp4)
     
+    # Get the modification time of the file in seconds since the epoch
+    file_mod_time=$(stat -c %Y "$file")
+    
+    # Get the current time in seconds since the epoch
+    current_time=$(date +%s)
+    
+    # Calculate the time difference in seconds
+    time_diff=$((current_time - file_mod_time))
+    
+    # Skip if the file hasn't been modified in the last 24 hours
+    if [ "$time_diff" -gt "$TIME_THRESHOLD" ]; then
+        echo "Skipped: $file (Not a new file within the last 24 hours)"
+        continue
+    fi
+
     # Check if the corresponding .srt file exists
     if [ ! -f "${OUTPUT_DIR}${base_filename}.srt" ]; then
         echo "Processing: $file"
@@ -411,9 +427,9 @@ done
 ```
 Run `chmod +x subtitler.sh`  
 Create cron job with `crontab e`  
-Enter following to run every 30 minutes
+Enter following to run at 2am every day
 ```
-*/30 * * * * /path/to/process_files.sh
+0 2 * * * /path/to/process_files.sh
 ```
 
 ## Other resources
