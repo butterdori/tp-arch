@@ -379,6 +379,43 @@ echo "Backup completed successfully!"
 ```
 You can use cron or systemd/timer to schedule. For the above, I will be using systemd.
 
+## Custom scripts
+# Run Faster-Whisper on new files
+Create subtitler.sh
+```
+#!/bin/bash
+
+# Set variables
+INPUT_DIR="/input/"
+OUTPUT_DIR="/output/"
+COMMAND="/path/to/Whisper-Faster-XXL/whisper-faster-xxl"
+LANGUAGE="Japanese"
+MODEL="medium"
+
+# Process files
+for file in "$INPUT_DIR"*.mp4; do
+    # Skip if no files are found
+    [ -e "$file" ] || continue
+    
+    # Get the base filename without extension
+    base_filename=$(basename "$file" .mp4)
+    
+    # Check if the corresponding .srt file exists
+    if [ ! -f "${OUTPUT_DIR}${base_filename}.srt" ]; then
+        echo "Processing: $file"
+        "$COMMAND" "$file" --language "$LANGUAGE" --model "$MODEL" --output_dir "$OUTPUT_DIR"
+    else
+        echo "Skipped: $file (SRT file already exists)"
+    fi
+done
+```
+Run `chmod +x subtitler.sh`
+Create cron job with `crontab e`
+Enter following to run every 30 minutes
+```
+*/30 * * * * /path/to/process_files.sh
+```
+
 ## Other resources
 Arch Linux Wiki https://wiki.archlinux.org/title/Lenovo_ThinkPad_T14s_(AMD)_Gen_3  
 No particular tweaks are necessary but it could nevertheles be helpful
