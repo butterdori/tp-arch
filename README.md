@@ -409,7 +409,7 @@ for file in "$INPUT_DIR"*.mp4; do
     fi
 done
 ```
-Run `chmod +x subtitler.sh`
+Run `chmod +x subtitler.sh`  
 Create cron job with `crontab e`
 Enter following to run every 30 minutes
 ```
