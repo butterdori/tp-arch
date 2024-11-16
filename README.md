@@ -380,7 +380,7 @@ echo "Backup completed successfully!"
 You can use cron or systemd/timer to schedule. For the above, I will be using systemd.
 
 ## Custom scripts
-# Run Faster-Whisper on new files
+### Monitor folder and run Faster-Whisper on new files
 Create subtitler.sh
 ```
 #!/bin/bash
