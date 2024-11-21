@@ -432,7 +432,7 @@ process_file() {
     # Skip time check if not skipped
     if ! $SKIP_TIME_CHECK; then
         # Get the modification time of the file in seconds since the epoch
-        file_mod_time=$(stat -c %Y "$file" 2>/dev/null || stat -f %m "$file")
+        file_mod_time=$(stat -c %Y "$file")
 
         # Get the current time in seconds since the epoch
         current_time=$(date +%s)
