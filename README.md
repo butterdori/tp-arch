@@ -381,49 +381,101 @@ You can use cron or systemd/timer to schedule. For the above, I will be using sy
 
 ## Custom scripts
 ### Monitor folder and run Faster-Whisper on new files
+The following script checks the input folder for video files (mp4, mkv, avi) without *.srt and files that have been modified in the last 24 hours (new files). It then runs whisper-faster-xxl using medium model.  
+  
+Passing through -t skips the modified file check (but still checks and skips if *.srt already exists).
+`./subtitler.sh -t'  
+Passing through -f runs it for a single path and outputs the result to the original path.
+`./subtitler.sh -f /path/to/specific/file.mp4'  
+  
 Create subtitler.sh
-```
-#!/bin/bash
+```#!/bin/bash
+shopt -s extglob
 
 # Set variables
 INPUT_DIR="/input/"
 OUTPUT_DIR="/output/"
-COMMAND="/path/to/Whisper-Faster-XXL/whisper-faster-xxl"
+COMMAND="/srv/mergerfs/pool/Temp/Whisper-Faster-XXL/whisper-faster-xxl"
 LANGUAGE="Japanese"
 MODEL="medium"
-TIME_THRESHOLD=86400  # 24 hours in seconds
+TIME_THRESHOLD=86400
 
-# Process files
-for file in "$INPUT_DIR"*.mp4; do
-    # Skip if no files are found
-    [ -e "$file" ] || continue
-    
+# Parse command-line options
+SKIP_TIME_CHECK=false
+FILE_TO_PROCESS=""
+while getopts "tf:" opt; do
+    case $opt in
+        t)
+            SKIP_TIME_CHECK=true
+            ;;
+        f)
+            FILE_TO_PROCESS="$OPTARG"
+            ;;
+        *)
+            echo "Usage: $0 [-t] [-f file_path]"
+            echo "  -t              Skip time difference check (process all files regardless of modification time)"
+            echo "  -f file_path    Process a specific file and output to the file's directory"
+            exit 1
+            ;;
+    esac
+done
+
+# Function to process a single file
+process_file() {
+    local file="$1"
+    local output_dir="$2"
+
     # Get the base filename without extension
-    base_filename=$(basename "$file" .mp4)
-    
-    # Get the modification time of the file in seconds since the epoch
-    file_mod_time=$(stat -c %Y "$file")
-    
-    # Get the current time in seconds since the epoch
-    current_time=$(date +%s)
-    
-    # Calculate the time difference in seconds
-    time_diff=$((current_time - file_mod_time))
-    
-    # Skip if the file hasn't been modified in the last 24 hours
-    if [ "$time_diff" -gt "$TIME_THRESHOLD" ]; then
-        echo "Skipped: $file (Not a new file within the last 24 hours)"
-        continue
+    base_filename=$(basename "$file" | sed 's/\.[^.]*$//')
+
+    # Skip time check if not skipped
+    if ! $SKIP_TIME_CHECK; then
+        # Get the modification time of the file in seconds since the epoch
+        file_mod_time=$(stat -c %Y "$file" 2>/dev/null || stat -f %m "$file")
+
+        # Get the current time in seconds since the epoch
+        current_time=$(date +%s)
+
+        # Calculate the time difference in seconds
+        time_diff=$((current_time - file_mod_time))
+
+        # Skip if the file hasn't been modified in the last 24 hours
+        if [ "$time_diff" -gt "$TIME_THRESHOLD" ]; then
+            echo "Skipped: $file (Not a new file within the last 24 hours)"
+            return
+        fi
     fi
 
     # Check if the corresponding .srt file exists
-    if [ ! -f "${OUTPUT_DIR}${base_filename}.srt" ]; then
+    if [ ! -f "${output_dir}${base_filename}.srt" ]; then
         echo "Processing: $file"
-        "$COMMAND" "$file" --language "$LANGUAGE" --model "$MODEL" --output_dir "$OUTPUT_DIR"
+        "$COMMAND" "$file" --language "$LANGUAGE" --model "$MODEL" --output_dir "$output_dir"
     else
         echo "Skipped: $file (SRT file already exists)"
     fi
+}
+
+# If a file is specified, process that file
+if [ -n "$FILE_TO_PROCESS" ]; then
+    if [ -e "$FILE_TO_PROCESS" ]; then
+        # Extract directory of the input file for output
+        FILE_OUTPUT_DIR=$(dirname "$FILE_TO_PROCESS")/
+        process_file "$FILE_TO_PROCESS" "$FILE_OUTPUT_DIR"
+    else
+        echo "Error: File not found: $FILE_TO_PROCESS"
+        exit 1
+    fi
+    exit 0
+fi
+
+# Process files in the directory
+for file in "$INPUT_DIR"*.mp4 "$INPUT_DIR"*.mkv "$INPUT_DIR"*.avi; do
+    # Skip if no files are found
+    [ -e "$file" ] || continue
+
+    process_file "$file" "$OUTPUT_DIR"
 done
+
 ```
 Run `chmod +x subtitler.sh`  
 Create cron job with `crontab e`  
