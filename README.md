@@ -389,7 +389,7 @@ Passing through -f runs it for a single path and outputs the result to the origi
 `./subtitler.sh -f /path/to/specific/file.mp4'  
   
 Create subtitler.sh
-```
+```sh
 #!/bin/bash
 shopt -s extglob
 
