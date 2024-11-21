@@ -396,7 +396,7 @@ shopt -s extglob
 # Set variables
 INPUT_DIR="/input/"
 OUTPUT_DIR="/output/"
-COMMAND="/srv/mergerfs/pool/Temp/Whisper-Faster-XXL/whisper-faster-xxl"
+COMMAND="/path/to/Whisper-Faster-XXL/whisper-faster-xxl"
 LANGUAGE="Japanese"
 MODEL="medium"
 TIME_THRESHOLD=86400
@@ -421,13 +421,27 @@ while getopts "tf:" opt; do
     esac
 done
 
+# Spinner function
+spin() {
+    local pid=$1
+    local delay=0.1
+    local spinstr='|/-\'
+    while [ "$(ps a | awk '{print $1}' | grep $pid)" ]; do
+        for i in `seq 0 3`; do
+            echo -ne "\r${spinstr:$i:1}"
+            sleep $delay
+        done
+    done
+    echo -ne '\r'
+}
+
 # Function to process a single file
 process_file() {
     local file="$1"
     local output_dir="$2"
 
     # Get the base filename without extension
-    base_filename=$(basename "$file" | sed 's/\.[^.]*$//')
+    base_filename="${file%.*}"
 
     # Skip time check if not skipped
     if ! $SKIP_TIME_CHECK; then
@@ -474,7 +488,9 @@ for file in "$INPUT_DIR"*.mp4 "$INPUT_DIR"*.mkv "$INPUT_DIR"*.avi; do
     # Skip if no files are found
     [ -e "$file" ] || continue
 
-    process_file "$file" "$OUTPUT_DIR"
+    # Run the file processing in the background and show the spinner
+    process_file "$file" "$OUTPUT_DIR" &
+    spin $!
 done
 
 ```
