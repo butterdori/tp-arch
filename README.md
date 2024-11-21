@@ -337,7 +337,7 @@ STOP_CHARGE_THRESH_BAT0 80
 ### Home folder backup
 Backup script (home_backup.sh) that will make a backup every month, keep the last 3 month and last 1 year's backup. It excludes the Downloads folder, cache, log, and temporary files. Bear in mind that not all custom settings live within the home folder. As such, restoring from the backup may not restore all your previous settings.  
 
-```
+```bash
 #!/bin/bash
 
 # Configuration
@@ -389,7 +389,8 @@ Passing through -f runs it for a single path and outputs the result to the origi
 `./subtitler.sh -f /path/to/specific/file.mp4'  
   
 Create subtitler.sh
-```#!/bin/bash
+```
+#!/bin/bash
 shopt -s extglob
 
 # Set variables
