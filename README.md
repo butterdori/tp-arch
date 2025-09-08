@@ -288,7 +288,6 @@ source $ZSH/oh-my-zsh.sh
 export PATH="/usr/local/texlive/2023/bin/x86_64-linux:$PATH"
 export MANPATH="/usr/local/texlive/2023/texmf-dist/doc/man:$MANPATH"
 export INFOPATH="/usr/local/texlive/2023/texmf-dist/doc/info:$INFOPATH"
-export PATH="/home/dk/.local/bin/:$PATH"
 export PATH="/usr/local/stata18/:$PATH"
 
 # You may need to manually set your language environment
@@ -320,7 +319,7 @@ source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Created by `pipx` on 2024-02-15 19:42:42
-export PATH="$PATH:/home/dk/.local/bin"
+
 ```
 
 ### Powerline fonts
