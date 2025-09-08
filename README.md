@@ -277,7 +277,7 @@ source $ZSH/oh-my-zsh.sh
 ```
 
 ### tmux auto launch and selection menu with ssh
-When added to $~/.zprofile$, it will show following screen when ssh-ing to the server.
+When added to `~/.zprofile`, it will show following screen when ssh-ing to the server.
 
 ```
 tmux sessions on myhost:
