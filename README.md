@@ -275,6 +275,99 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
+### tmux auto launch and selection menu with ssh
+When added to $~/.zprofile$, it will show following screen when ssh-ing to the server.
+```
+tmux sessions on myhost:
+  1) ssh-20250901-051202
+  2) ssh-20250831-121202
+  3) ssh-20250822-021202
+  n) new timestamped session
+  s) skip tmux (normal shell)
+  t) stop timer (wait forever)
+
+Common tmux shortcuts:
+  Ctrl-b d    detach                 Ctrl-b c    new window
+  Ctrl-b ?    list all key bindings  Ctrl-b n/p  next/prev window
+  Ctrl-b s    list sessions (inter.) Ctrl-b ,    rename window
+  Ctrl-b (    previous session       Ctrl-b "    split pane (horizontal)
+  Ctrl-b )    next session           Ctrl-b %    split pane (vertical)
+                                      Ctrl-b o    toggle panes
+
+Select [1-3, n, s, t] (default: n in 8s):
+
+```
+
+### .zprofile
+```
+# ~/.zprofile  — auto-tmux menu for SSH logins
+# Bypass with: SKIP_TMUX=1
+if [[ -z "$SKIP_TMUX" ]] && [[ -z "$TMUX" ]] && [[ -n "$SSH_CONNECTION" || -n "$SSH_TTY" ]]; then
+  command -v tmux >/dev/null 2>&1 || return
+  [[ -t 0 && -t 1 && -t 2 ]] || return  # need a real TTY
+
+  # list sessions
+  local -a sessions
+  sessions=(${(f)"$(tmux list-sessions -F '#S' 2>/dev/null | sed '/^[[:space:]]*$/d')"})
+
+  # show menu always
+  {
+    print ""
+    print "tmux sessions on $(hostname):"
+    if (( ${#sessions} )); then
+      local i=1
+      for s in "${sessions[@]}"; do
+        print "  $i) $s"
+        ((i++))
+      done
+    else
+      print "  (no existing sessions)"
+    fi
+    print "  n) new timestamped session"
+    print "  s) skip tmux (normal shell)"
+    print "  t) stop timer (wait forever)"
+    print ""
+
+    # Cheatsheet in two aligned columns
+    print "Common tmux shortcuts:"
+    printf "  %-12s %-24s %-12s %-24s\n" "Ctrl-b d"  "detach"                   "Ctrl-b c"   "new window"
+    printf "  %-12s %-24s %-12s %-24s\n" "Ctrl-b ?"  "list all key bindings"    "Ctrl-b n/p" "next/prev window"
+    printf "  %-12s %-24s %-12s %-24s\n" "Ctrl-b s"  "list sessions (inter.)"   "Ctrl-b ,"   "rename window"
+    printf "  %-12s %-24s %-12s %-24s\n" "Ctrl-b ("  "previous session"          "Ctrl-b \""  "split pane (horizontal)"
+    printf "  %-12s %-24s %-12s %-24s\n" "Ctrl-b )"  "next session"              "Ctrl-b %%"  "split pane (vertical)"
+    printf "  %-12s %-24s %-12s %-24s\n" ""           ""                          "Ctrl-b o"   "toggle panes"
+    print ""
+
+    printf "Select [1-${#sessions}, n, s, t] (default: n in 8s): "
+  } > /dev/tty
+
+  local choice
+  if ! read -r -t 8 choice < /dev/tty; then
+    choice="n"
+  fi
+
+  # stop timer option: re-prompt with no timeout
+  if [[ "$choice" == [tT] ]]; then
+    printf "\nTimer stopped. Please choose (no timeout): " > /dev/tty
+    read -r choice < /dev/tty
+    [[ -z "$choice" ]] && choice="n"
+  fi
+
+  if [[ "$choice" == [sS] ]]; then
+    :  # plain shell
+  elif [[ "$choice" == [nN] || -z "$choice" ]]; then
+    name="ssh-$(date +%Y%m%d-%H%M%S)"
+    tmux new-session -d -s "$name" || return
+    exec tmux attach -t "$name"
+  elif [[ "$choice" == <-> ]] && (( choice >= 1 && choice <= ${#sessions} )); then
+    exec tmux attach -t "${sessions[$choice]}"
+  else
+    :  # invalid -> plain shell
+  fi
+fi
+
+```
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
