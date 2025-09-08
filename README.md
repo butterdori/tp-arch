@@ -274,9 +274,11 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
+```
 
 ### tmux auto launch and selection menu with ssh
 When added to $~/.zprofile$, it will show following screen when ssh-ing to the server.
+
 ```
 tmux sessions on myhost:
   1) ssh-20250901-051202
