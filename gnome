@@ -1,0 +1,32 @@
+cat > ~/fix-gnome-session.sh <<'EOF'
+#!/usr/bin/env bash
+set -euo pipefail
+T=$(date +%F_%H%M%S); R="$HOME/.recovery-$T"
+mkdir -p "$R"
+mv_if(){ [ -e "$1" ] && mv -v "$1" "$R/"; }
+
+# Move problematic user state to backup
+mv_if "$HOME/.local/share/gnome-shell"
+mv_if "$HOME/.local/share/glib-2.0"
+mv_if "$HOME/.config/autostart"
+mv_if "$HOME/.config/systemd/user"
+mv_if "$HOME/.config/environment.d"
+mv_if "$HOME/.config/monitors.xml"
+for f in "$HOME/.profile" "$HOME/.bash_profile" "$HOME/.xprofile" "$HOME/.xinitrc" "$HOME/.pam_environment"; do mv_if "$f"; done
+[ -d "$HOME/.config/dconf" ] && mv -v "$HOME/.config/dconf" "$R/dconf"
+
+# Clean caches/saved sessions
+rm -rf "$HOME/.cache/gnome-shell" "$HOME/.cache/gdm" "$HOME/.config/gnome-session/saved-session"
+
+# Ownership & Xauthority sanity
+sudo chown -R "$USER:$USER" "$HOME/.config" "$HOME/.cache" "$HOME/.local" || true
+rm -f "$HOME/.Xauthority" "$HOME/.ICEauthority"
+
+# Ensure Wayland (best for 6800U) is enabled
+sudo sed -i 's/^WaylandEnable=.*/#WaylandEnable=false/' /etc/gdm/custom.conf 2>/dev/null || true
+
+echo "Backup saved at: $R"
+echo "Restarting GDM…"
+sudo systemctl restart gdm
+EOF
+bash ~/fix-gnome-session.sh
