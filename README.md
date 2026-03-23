@@ -75,6 +75,9 @@ Just Perfection
 Panel Date Format
 Vitals  
 
+### Customized sleep behavior  
+Only suspend 15 minutes after lid close. Sometimes, you may be taking your laptop to another place for a short period of time. In such cases, it would not make sense for the laptop to go to suspend, only to be woken up very quickly afterwards. For qol improvement, we can set the laptop to go into suspend only after 15 minutes. This requires changing settings in lid detection, system idle, and systemd-logind.
+
 ## Themes
 
 ### Gnome Theme
